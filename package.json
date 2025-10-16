@@ -1,0 +1,60 @@
+{
+  "name": "gigatalk",
+  "version": "1.0.0",
+  "description": "Local voice-to-text assistant using Electron and Whisper",
+  "main": "backend/main.js",
+  "type": "commonjs",
+  "author": "aradpey",
+  "license": "ISC",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@nut-tree-fork/nut-js": "^4.2.6",
+    "clipboardy": "^5.0.0",
+    "node-record-lpcm16": "^1.0.1"
+  },
+  "devDependencies": {
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
+    "electron": "^38.2.2"
+  },
+  "build": {
+    "appId": "com.aradpey.gigatalk",
+    "productName": "GigaTalk",
+    "files": [
+      "backend/**/*",
+      "icon.png",
+      "icon_app.png",
+      "icon_recording.png",
+      "icon_processing.png"
+    ],
+    "asarUnpack": [
+      "backend/whisper_handler.py"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "icon_app.png"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "icon_app.png"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "icon_app.png"
+    }
+  }
+}
