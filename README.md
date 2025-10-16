@@ -1,173 +1,80 @@
 # GigaTalk
 
-A local voice-to-text assistant built with Electron and OpenAI Whisper. GigaTalk runs as a system tray application and allows you to quickly transcribe speech to text using a global hotkey.
+A voice-to-text application that runs in your system tray. Press a hotkey to record audio, and it automatically transcribes your speech and pastes the text into whatever application you're using.
 
-## Features
+## What it does
 
-- 🎙️ **Voice Recording**: Record audio with a global hotkey (`Cmd+Shift+Space`)
-- 🤖 **AI Transcription**: Uses OpenAI Whisper for accurate speech-to-text conversion
-- 📋 **Auto-Paste**: Automatically pastes transcribed text into the active application
-- 🖥️ **Tray-Only Interface**: Runs in the system tray with no visible window
-- 🔄 **Dynamic Icons**: Visual feedback showing recording/processing states
-- 🧹 **Auto-Cleanup**: Automatically deletes temporary audio files
-- 📝 **Comprehensive Logging**: Detailed logs for debugging and monitoring
+- Records audio when you press Cmd+Shift+Space
+- Converts speech to text using AI
+- Automatically pastes the transcribed text into your current application
+- Runs quietly in the background with no visible window
 
-## Requirements
+## Technologies
 
-- **macOS** (tested on macOS 15.3.1)
-- **Python 3.9+** with Whisper installed
-- **SoX** (for audio recording)
-- **Microphone permissions**
+- Electron (desktop app framework)
+- OpenAI Whisper (speech recognition)
+- Python (for AI processing)
+- SoX (audio recording)
 
 ## Installation
 
-### Prerequisites
+### Step 1: Install prerequisites
 
-1. **Install SoX** (for audio recording):
-
-   ```bash
-   brew install sox
-   ```
-
-2. **Install Python dependencies**:
-   ```bash
-   pip3 install openai-whisper torch ffmpeg-python
-   ```
-
-### Building from Source
-
-1. **Clone the repository**:
-
-   ```bash
-   git clone https://github.com/yourusername/gigatalk.git
-   cd gigatalk
-   ```
-
-2. **Install Node.js dependencies**:
-
-   ```bash
-   npm install
-   ```
-
-3. **Build the application**:
-
-   ```bash
-   npm run dist
-   ```
-
-4. **Install the DMG**:
-   - Open `dist/GigaTalk-1.0.0-arm64.dmg`
-   - Drag GigaTalk to Applications folder
-
-## Usage
-
-1. **Launch GigaTalk** from Applications
-2. **Grant microphone permissions** when prompted
-3. **Use the global hotkey** `Cmd+Shift+Space` to:
-   - **Press and hold**: Start recording
-   - **Release**: Stop recording and transcribe
-4. **Transcribed text** will be automatically pasted into the active application
-
-### Tray Menu
-
-Right-click the GigaTalk tray icon to access:
-
-- **View Logs**: Open the log file for debugging
-- **Copy Log Path**: Copy log file path to clipboard
-- **Quit**: Exit the application
-
-## Development
-
-### Running in Development Mode
+Open Terminal and run these commands one by one:
 
 ```bash
-npm run dev
+# Install Homebrew (package manager)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install SoX (for audio recording)
+brew install sox
+
+# Install Python dependencies
+pip3 install openai-whisper torch ffmpeg-python
 ```
 
-### Building for Distribution
+### Step 2: Download and build the app
 
 ```bash
+# Download the code
+git clone https://github.com/yourusername/gigatalk.git
+cd gigatalk
+
+# Install Node.js dependencies
+npm install
+
+# Build the app
 npm run dist
 ```
 
-### Project Structure
+### Step 3: Install the app
 
-```
-gigatalk/
-├── backend/           # Core application logic
-│   ├── main.js       # Main Electron process
-│   ├── recorder.js   # Audio recording functionality
-│   ├── insertText.js # Text insertion via clipboard
-│   └── whisper_handler.py # Python Whisper script
-├── frontend/         # UI components (tray-only)
-├── package.json      # Node.js dependencies and build config
-└── requirements.txt  # Python dependencies
-```
+1. Open the `dist` folder
+2. Double-click `GigaTalk-1.0.0-arm64.dmg`
+3. Drag GigaTalk to your Applications folder
+4. Open GigaTalk from Applications
+5. Grant microphone permissions when asked
+
+### Step 4: Use the app
+
+Press `Cmd+Shift+Space` to start recording. Release the keys to stop recording and get your transcribed text.
 
 ## Troubleshooting
 
-### Common Issues
+If you get a "Python not found" error, make sure you have Python 3.9 or later installed:
 
-1. **"Python not found" error**:
-
-   - Ensure Python 3.9+ is installed
-   - Install Whisper: `pip3 install openai-whisper`
-
-2. **"No module named 'whisper'" error**:
-
-   - Install Whisper on the correct Python version
-   - Check which Python the app is using in the logs
-
-3. **Audio recording issues**:
-
-   - Install SoX: `brew install sox`
-   - Grant microphone permissions in System Preferences
-
-4. **Slow transcription**:
-   - First run downloads the Whisper model (~140MB)
-   - Subsequent runs should be fast
-
-### Logs
-
-GigaTalk creates detailed logs at:
-
-```
-~/Library/Logs/GigaTalk/gigatalk.log
+```bash
+python3 --version
 ```
 
-Access logs via the tray menu or check the file directly.
+If you get a "No module named 'whisper'" error, reinstall the Python dependencies:
 
-## Technical Details
+```bash
+pip3 install openai-whisper torch ffmpeg-python
+```
 
-### Architecture
+If audio recording doesn't work, make sure SoX is installed:
 
-- **Electron**: Cross-platform desktop app framework
-- **Whisper**: OpenAI's speech recognition model
-- **SoX**: Audio recording and processing
-- **PyTorch**: Machine learning backend for Whisper
-
-### Performance
-
-- **Fast Transcription**: Uses system Python with pre-installed dependencies
-- **Efficient Recording**: SoX for high-quality audio capture
-- **Memory Optimized**: Automatic cleanup of temporary files
-
-## License
-
-ISC License - see LICENSE file for details.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## Support
-
-For issues and questions:
-
-1. Check the troubleshooting section
-2. Review the logs
-3. Open an issue on GitHub
+```bash
+brew install sox
+```
